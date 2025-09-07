@@ -12,12 +12,6 @@ import (
 	"github.com/omriharel/deej/pkg/deej/util"
 )
 
-const (
-
-	// when this is set to anything, deej won't use a tray icon
-	envNoTray = "DEEJ_NO_TRAY_ICON"
-)
-
 // Deej is the main entity managing access to all sub-components
 type Deej struct {
 	logger   *zap.SugaredLogger
@@ -99,18 +93,11 @@ func (d *Deej) Initialize() error {
 	}
 
 	// decide whether to run with/without tray
-	if _, noTraySet := os.LookupEnv(envNoTray); noTraySet {
+	d.logger.Debugw("Running without tray icon", "reason", "envvar set")
 
-		d.logger.Debugw("Running without tray icon", "reason", "envvar set")
-
-		// run in main thread while waiting on ctrl+C
-		d.setupInterruptHandler()
-		d.run()
-
-	} else {
-		d.setupInterruptHandler()
-		d.initializeTray(d.run)
-	}
+	// run in main thread while waiting on ctrl+C
+	d.setupInterruptHandler()
+	d.run()
 
 	return nil
 }
@@ -198,8 +185,6 @@ func (d *Deej) stop() error {
 		d.logger.Errorw("Failed to release session map", "error", err)
 		return fmt.Errorf("release session map: %w", err)
 	}
-
-	d.stopTray()
 
 	// attempt to sync on exit - this won't necessarily work but can't harm
 	d.logger.Sync()

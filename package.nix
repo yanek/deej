@@ -25,7 +25,7 @@ buildGoModule {
     pkg-config
   ];
 
-  vendorHash = "sha256-1gjFPD7YV2MTp+kyC+hsj+NThmYG3hlt6AlOzXmEKyA=";
+  vendorHash = "sha256-wG35pcXLkzGyD7U6k3A68wYr4WN0bhTMr7wjsVNbzxo=";
 
   ldflags = [
     "-s"
