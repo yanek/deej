@@ -5,7 +5,7 @@ Inspired by [TheScabbage's fork](https://github.com/TheScabbage/deej-linux).
 
 ## Planned changes
 
-- [ ] Flake support
+- [x] Flake support
 - [ ] Update CI workflow files
 - [ ] XDG compliant config file placement
 - [ ] Remove tray icon to ditch some annoying deps
