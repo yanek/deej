@@ -1,3 +1,17 @@
+This repository is a fork of Deej aiming at providing an experience better tailored for my needs.
+For now, I am ditching Windows support, as I am mostly using Linux and don't have time to ensure everything is working fine on Windows. 
+
+Inspired by [TheScabbage's fork](https://github.com/TheScabbage/deej-linux).
+
+## Planned changes
+
+- [ ] Flake support
+- [ ] Update CI workflow files
+- [ ] XDG compliant config file placement
+- [ ] Remove tray icon to ditch some annoying deps
+- [ ] Update original README to better reflect the changes
+- [ ] Write an improved firmware with button and LED support
+
 # deej
 
 deej is an **open-source hardware volume mixer** for Windows and Linux PCs. It lets you use real-life sliders (like a DJ!) to **seamlessly control the volumes of different apps** (such as your music player, the game you're playing and your voice chat session) without having to stop what you're doing.
