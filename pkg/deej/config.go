@@ -2,6 +2,7 @@ package deej
 
 import (
 	"fmt"
+	"os"
 	"path"
 	"strings"
 	"time"
@@ -38,13 +39,8 @@ type CanonicalConfig struct {
 }
 
 const (
-	userConfigFilepath     = "config.yaml"
-	internalConfigFilepath = "preferences.yaml"
-
 	userConfigName     = "config"
 	internalConfigName = "preferences"
-
-	userConfigPath = "."
 
 	configType = "yaml"
 
@@ -59,7 +55,9 @@ const (
 )
 
 // has to be defined as a non-constant because we're using path.Join
-var internalConfigPath = path.Join(".", logDirectory)
+var configDir = path.Join(path.Join(os.Getenv("XDG_CONFIG_HOME"), "deej"))
+var userConfigFilepath = path.Join(configDir, "config.yaml")
+var internalConfigFilepath = path.Join(configDir, logDirectory, "preferences.yaml")
 
 var defaultSliderMapping = func() *sliderMap {
 	emptyMap := newSliderMap()
@@ -83,7 +81,7 @@ func NewConfig(logger *zap.SugaredLogger, notifier Notifier) (*CanonicalConfig, 
 	userConfig := viper.New()
 	userConfig.SetConfigName(userConfigName)
 	userConfig.SetConfigType(configType)
-	userConfig.AddConfigPath(userConfigPath)
+	userConfig.AddConfigPath(configDir)
 
 	userConfig.SetDefault(configKeySliderMapping, map[string][]string{})
 	userConfig.SetDefault(configKeyInvertSliders, false)
@@ -93,7 +91,7 @@ func NewConfig(logger *zap.SugaredLogger, notifier Notifier) (*CanonicalConfig, 
 	internalConfig := viper.New()
 	internalConfig.SetConfigName(internalConfigName)
 	internalConfig.SetConfigType(configType)
-	internalConfig.AddConfigPath(internalConfigPath)
+	internalConfig.AddConfigPath(configDir)
 
 	cc.userConfig = userConfig
 	cc.internalConfig = internalConfig
@@ -111,7 +109,7 @@ func (cc *CanonicalConfig) Load() error {
 	if !util.FileExists(userConfigFilepath) {
 		cc.logger.Warnw("Config file not found", "path", userConfigFilepath)
 		cc.notifier.Notify("Can't find configuration!",
-			fmt.Sprintf("%s must be in the same directory as deej. Please re-launch", userConfigFilepath))
+			fmt.Sprintf("%s does not exist. Please re-launch", userConfigFilepath))
 
 		return fmt.Errorf("config file doesn't exist: %s", userConfigFilepath)
 	}
