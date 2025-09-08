@@ -25,7 +25,7 @@ buildGoModule {
     pkg-config
   ];
 
-  vendorHash = "sha256-wG35pcXLkzGyD7U6k3A68wYr4WN0bhTMr7wjsVNbzxo=";
+  vendorHash = "sha256-UwukpOjEY/MYcMXQDj74jY3ZA3SAlIvC1YL3NhhnMUA=";
 
   ldflags = [
     "-s"
@@ -39,7 +39,7 @@ buildGoModule {
 
   meta = {
     description = "Set app volumes with real sliders! deej is an Arduino & Go project to let you build your own hardware mixer for Windows and Linux";
-    homepage = "https://github.com/yanek/deej-linux";
+    homepage = "https://github.com/yanek/deej";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ yanek ];
     mainProgram = "deej";

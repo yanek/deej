@@ -92,19 +92,11 @@ func (d *Deej) Initialize() error {
 		return fmt.Errorf("init session map: %w", err)
 	}
 
-	// decide whether to run with/without tray
-	d.logger.Debugw("Running without tray icon", "reason", "envvar set")
-
 	// run in main thread while waiting on ctrl+C
 	d.setupInterruptHandler()
 	d.run()
 
 	return nil
-}
-
-// SetVersion causes deej to add a version string to its tray menu if called before Initialize
-func (d *Deej) SetVersion(version string) {
-	d.version = version
 }
 
 // Verbose returns a boolean indicating whether deej is running in verbose mode

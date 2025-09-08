@@ -8,11 +8,8 @@ import (
 )
 
 var (
-	gitCommit  string
-	versionTag string
-	buildType  string
-
-	verbose bool
+	buildType string
+	verbose   bool
 )
 
 func init() {
@@ -32,11 +29,6 @@ func main() {
 	named := logger.Named("main")
 	named.Debug("Created logger")
 
-	named.Infow("Version info",
-		"gitCommit", gitCommit,
-		"versionTag", versionTag,
-		"buildType", buildType)
-
 	// provide a fair warning if the user's running in verbose mode
 	if verbose {
 		named.Debug("Verbose flag provided, all log messages will be shown")
@@ -46,17 +38,6 @@ func main() {
 	d, err := deej.NewDeej(logger, verbose)
 	if err != nil {
 		named.Fatalw("Failed to create deej object", "error", err)
-	}
-
-	// if injected by build process, set version info to show up in the tray
-	if buildType != "" && (versionTag != "" || gitCommit != "") {
-		identifier := gitCommit
-		if versionTag != "" {
-			identifier = versionTag
-		}
-
-		versionString := fmt.Sprintf("Version %s-%s", buildType, identifier)
-		d.SetVersion(versionString)
 	}
 
 	// onwards, to glory
