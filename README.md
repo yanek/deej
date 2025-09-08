@@ -6,8 +6,8 @@ Inspired by [TheScabbage's fork](https://github.com/TheScabbage/deej-linux).
 ## Planned changes
 
 - [x] Flake support
-- [ ] Update CI workflow files
-- [ ] XDG compliant config file placement
+- [x] Update CI workflow files
+- [x] XDG compliant config file placement
 - [x] Remove tray icon to ditch some annoying deps
 - [ ] Update original README to better reflect the changes
 - [ ] Write an improved firmware with button and LED support
